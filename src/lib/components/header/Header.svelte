@@ -8,7 +8,7 @@
 </script>
 
 <div
-	class="container flex flex-col items-start justify-between space-y-2 py-4 sm:flex-row sm:items-center sm:space-y-0 md:h-16"
+	class="flex flex-col items-start justify-between space-y-2 px-8 py-4 sm:flex-row sm:items-center sm:space-y-0 md:h-16"
 >
 	<h2 class="w-full text-lg font-semibold">Skyfall Upload</h2>
 	<div class="ml-auto flex w-full space-x-2 sm:justify-end">
