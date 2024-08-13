@@ -1,6 +1,6 @@
-import { redirect } from '@sveltejs/kit';
-import { generateState } from 'arctic';
 import { github } from '$lib/server/auth';
+import { generateState } from 'arctic';
+import { redirect } from '@sveltejs/kit';
 
 import type { RequestEvent } from '@sveltejs/kit';
 
@@ -16,5 +16,5 @@ export async function GET(event: RequestEvent): Promise<Response> {
 		sameSite: 'lax'
 	});
 
-	redirect(302, url.toString());
+	return redirect(302, url.toString());
 }

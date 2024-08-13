@@ -4,7 +4,7 @@ import { dev } from '$app/environment';
 import pg from 'pg';
 import { DrizzlePostgreSQLAdapter } from '@lucia-auth/adapter-drizzle';
 import { drizzle } from 'drizzle-orm/node-postgres';
-import { sessionTable, userTable } from './schema';
+import { userTable, sessionTable } from './schema';
 
 import { GitHub } from 'arctic';
 import { GITHUB_CLIENT_ID, GITHUB_CLIENT_SECRET } from '$env/static/private';
@@ -12,9 +12,11 @@ import { GITHUB_CLIENT_ID, GITHUB_CLIENT_SECRET } from '$env/static/private';
 export const github = new GitHub(GITHUB_CLIENT_ID, GITHUB_CLIENT_SECRET);
 
 const pool = new pg.Pool({
-	connectionString: import.meta.env.PG_DATABASE_URL
+	connectionString:
+		'postgresql://postgres.wjwnlkukvhluqkpfprtq:ieQkwSZTVshUZNOq@aws-0-us-east-1.pooler.supabase.com:6543/postgres'
 });
-export const db = drizzle(pool);
+
+export const db = drizzle(pool, { schema: { users: userTable, session: sessionTable } });
 
 const adapter = new DrizzlePostgreSQLAdapter(db, sessionTable, userTable);
 

@@ -1,6 +1,7 @@
 import { OAuth2RequestError } from 'arctic';
 import { generateIdFromEntropySize } from 'lucia';
 import { github, lucia, db } from '$lib/server/auth';
+import { userTable } from '$lib/server/schema';
 
 import type { RequestEvent } from '@sveltejs/kit';
 
@@ -15,6 +16,8 @@ export async function GET(event: RequestEvent): Promise<Response> {
 		});
 	}
 
+	console.log(`Received code: ${code}`);
+
 	try {
 		const tokens = await github.validateAuthorizationCode(code);
 		const githubUserResponse = await fetch('https://api.github.com/user', {
@@ -25,7 +28,9 @@ export async function GET(event: RequestEvent): Promise<Response> {
 		const githubUser: GitHubUser = await githubUserResponse.json();
 
 		// Replace this with your own DB client.
-		const existingUser = await db.table('user').where('github_id', '=', githubUser.id).get();
+		const existingUser = await db.query.users.findFirst({
+			where: (users, { eq }) => eq(users.id, githubUser.id.toString())
+		});
 
 		if (existingUser) {
 			const session = await lucia.createSession(existingUser.id, {});
@@ -37,12 +42,8 @@ export async function GET(event: RequestEvent): Promise<Response> {
 		} else {
 			const userId = generateIdFromEntropySize(10); // 16 characters long
 
-			// Replace this with your own DB client.
-			await db.table('user').insert({
-				id: userId,
-				github_id: githubUser.id,
-				username: githubUser.login
-			});
+			const values = { id: userId, githubId: githubUser.id, username: githubUser.login };
+			await db.insert(userTable).values(values).onConflictDoNothing().execute();
 
 			const session = await lucia.createSession(userId, {});
 			const sessionCookie = lucia.createSessionCookie(session.id);
@@ -61,10 +62,12 @@ export async function GET(event: RequestEvent): Promise<Response> {
 		// the specific error message depends on the provider
 		if (e instanceof OAuth2RequestError) {
 			// invalid code
+			console.error(e);
 			return new Response(null, {
 				status: 400
 			});
 		}
+		console.error(e);
 		return new Response(null, {
 			status: 500
 		});
