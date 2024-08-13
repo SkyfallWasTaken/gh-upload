@@ -27,7 +27,7 @@ export async function GET(event: RequestEvent): Promise<Response> {
 
 		// Replace this with your own DB client.
 		const existingUser = await db.query.users.findFirst({
-			where: (users, { eq }) => eq(users.id, githubUser.id.toString())
+			where: (users, { eq }) => eq(users.githubId, githubUser.id)
 		});
 
 		if (existingUser) {
