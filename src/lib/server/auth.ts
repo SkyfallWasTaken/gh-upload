@@ -7,13 +7,12 @@ import { drizzle } from 'drizzle-orm/node-postgres';
 import { userTable, sessionTable } from './schema';
 
 import { GitHub } from 'arctic';
-import { GITHUB_CLIENT_ID, GITHUB_CLIENT_SECRET } from '$env/static/private';
+import { GITHUB_CLIENT_ID, GITHUB_CLIENT_SECRET, PG_DATABASE_URL } from '$env/static/private';
 
 export const github = new GitHub(GITHUB_CLIENT_ID, GITHUB_CLIENT_SECRET);
 
 const pool = new pg.Pool({
-	connectionString:
-		'postgresql://postgres.wjwnlkukvhluqkpfprtq:ieQkwSZTVshUZNOq@aws-0-us-east-1.pooler.supabase.com:6543/postgres'
+	connectionString: PG_DATABASE_URL
 });
 
 export const db = drizzle(pool, { schema: { users: userTable, session: sessionTable } });
