@@ -16,8 +16,6 @@ export async function GET(event: RequestEvent): Promise<Response> {
 		});
 	}
 
-	console.log(`Received code: ${code}`);
-
 	try {
 		const tokens = await github.validateAuthorizationCode(code);
 		const githubUserResponse = await fetch('https://api.github.com/user', {
