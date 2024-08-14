@@ -3,6 +3,7 @@
 	import FileDrop from 'svelte-droplet/FileDrop.svelte';
 	import Upload from 'lucide-svelte/icons/upload';
 	import LockKeyhole from 'lucide-svelte/icons/lock-keyhole';
+	import { signIn } from '@auth/sveltekit/client';
 
 	export let loggedIn: boolean;
 	export let files: File[] = [];
@@ -50,7 +51,7 @@
 					<h2 class="text-xl font-semibold">First, sign in to GitHub</h2>
 					<p class="text-muted-foreground">Once you're done, we'll go to the next stage.</p>
 				</div>
-				<Button href="/login">
+				<Button on:click={() => signIn('github')}>
 					<LockKeyhole class="mr-2 h-4 w-4" />
 					Sign in to GitHub
 				</Button>

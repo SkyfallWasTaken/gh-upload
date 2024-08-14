@@ -1,5 +1,5 @@
 <script lang="ts">
-	import type { PageData } from '../../../routes/$types';
+	import { signIn } from '@auth/sveltekit/client';
 	import Button from '$lib/components/ui/button/button.svelte';
 
 	export let loggedIn: boolean;
@@ -20,5 +20,5 @@
 		<a href="/logout" class="font-semibold">Sign out</a>
 	</div>
 {:else}
-	<a href="/login"><Button>Sign in</Button></a>
+	<Button on:click={() => signIn('github')}>Sign in</Button>
 {/if}

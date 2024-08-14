@@ -1,16 +1,10 @@
-import type { PageServerLoad } from './$types';
+import type { LayoutServerLoad } from './$types';
 
-export const load: PageServerLoad = async (event) => {
-	if (event.locals.user) {
-		console.log(event.locals.session);
-		return {
-			loggedIn: true,
-			username: event.locals.user.username,
-			accessToken: event.locals.session.accessToken
-		};
-	}
+export const load: LayoutServerLoad = async (event) => {
+	const session = await event.locals.auth();
+	console.log('session', session);
+
 	return {
-		loggedIn: false,
-		username: null
+		session
 	};
 };

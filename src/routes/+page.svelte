@@ -1,11 +1,11 @@
 <script lang="ts">
 	import type { PageData } from './$types';
 	import UploadContainer from '$lib/components/UploadContainer.svelte';
-	import Dropzone from 'svelte-file-dropzone';
 	import { Button } from '$lib/components/ui/button';
 	import Upload from 'lucide-svelte/icons/upload';
 
 	export let data: PageData;
+	console.log(data);
 
 	let filesToUpload: File[] = [];
 

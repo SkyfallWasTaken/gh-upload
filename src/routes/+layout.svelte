@@ -6,8 +6,9 @@
 
 	import type { PageData } from './$types';
 	export let data: PageData;
+	console.log('layout', data);
 </script>
 
 <ModeWatcher />
-<Header username={data.username} loggedIn={data.loggedIn}/>
+<Header username={data.username} loggedIn={data.loggedIn} />
 <slot></slot>
