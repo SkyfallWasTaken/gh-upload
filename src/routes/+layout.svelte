@@ -6,9 +6,13 @@
 
 	import type { PageData } from './$types';
 	export let data: PageData;
-	console.log('layout', data);
+
+	let username: string | null;
+	if (data.session?.user) {
+		username = data.session.user.username || 'Unknown';
+	}
 </script>
 
 <ModeWatcher />
-<Header username={data.username} loggedIn={data.loggedIn} />
+<Header {username} loggedIn={data.session != null} />
 <slot></slot>

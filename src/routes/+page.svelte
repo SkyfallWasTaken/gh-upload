@@ -5,7 +5,6 @@
 	import Upload from 'lucide-svelte/icons/upload';
 
 	export let data: PageData;
-	console.log(data);
 
 	let filesToUpload: File[] = [];
 
@@ -13,13 +12,14 @@
 		filesToUpload = [...filesToUpload, ...files];
 	}
 
+	// biome-ignore lint/style/useConst: false-positive
 	let files: File[] = [];
 </script>
 
 <main class="px-2 py-4">
 	<div class="flex flex-col items-center justify-center gap-12">
 		<h1 class="mt-4 text-center text-6xl font-bold">Uploads made<br />simple</h1>
-		<UploadContainer loggedIn={data.loggedIn} bind:files />
+		<UploadContainer loggedIn={data.session != null} bind:files />
 		{#if files.length > 0}
 			<Button><Upload class="mr-2 h-4 w-4" />Upload files</Button>
 		{/if}

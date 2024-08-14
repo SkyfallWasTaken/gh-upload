@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { signIn } from '@auth/sveltekit/client';
+	import { signIn, signOut } from '@auth/sveltekit/client';
 	import Button from '$lib/components/ui/button/button.svelte';
 
 	export let loggedIn: boolean;
@@ -17,7 +17,7 @@
 	>
 		<span>{username}</span>
 		<span>&bull;</span>
-		<a href="/logout" class="font-semibold">Sign out</a>
+		<a href="/" class="font-semibold" on:click={() => signOut()}>Sign out</a>
 	</div>
 {:else}
 	<Button on:click={() => signIn('github')}>Sign in</Button>
