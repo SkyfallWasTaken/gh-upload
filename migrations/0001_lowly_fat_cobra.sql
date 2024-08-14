@@ -1,0 +1,1 @@
+ALTER TABLE "session" ADD COLUMN "access_token" text NOT NULL;

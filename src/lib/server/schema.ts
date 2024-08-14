@@ -14,5 +14,6 @@ export const sessionTable = pgTable('session', {
 	expiresAt: timestamp('expires_at', {
 		withTimezone: true,
 		mode: 'date'
-	}).notNull()
+	}).notNull(),
+	accessToken: text('access_token').notNull()
 });
