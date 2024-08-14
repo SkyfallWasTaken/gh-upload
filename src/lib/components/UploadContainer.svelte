@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { Button } from './ui/button';
+	import Separator from './ui/separator/separator.svelte';
 	import FileDrop from 'svelte-droplet/FileDrop.svelte';
 	import Upload from 'lucide-svelte/icons/upload';
 	import LockKeyhole from 'lucide-svelte/icons/lock-keyhole';
@@ -19,7 +20,7 @@
 	}
 </script>
 
-<div class="w-full px-2 md:w-1/4 md:px-0">
+<div class="w-full px-2 md:w-1/3 md:px-0 lg:w-1/4">
 	<FileDrop {handleFiles} let:droppable disabled={!loggedIn}>
 		<div
 			class="{loggedIn ??
@@ -36,7 +37,7 @@
 				</Button>
 				{#if files.length > 0}
 					<div class="mt-4 text-center">
-						<h3 class="mb-2 text-lg font-semibold">Files to upload</h3>
+						<Separator class="mb-6 bg-slate-400" />
 						<ul class="grid w-full gap-2">
 							{#each files as file}
 								<div class="truncate rounded-md border border-2 border-slate-400 px-4 py-2">

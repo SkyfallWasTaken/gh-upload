@@ -5,6 +5,7 @@
 
 	export let loggedIn: boolean;
 	export let username: string | null;
+	export let avatar: string | null;
 </script>
 
 <div
@@ -13,7 +14,7 @@
 	<h2 class="w-full text-lg font-semibold">Skyfall Upload</h2>
 	<div class="ml-auto flex w-full space-x-2 sm:justify-end">
 		<ThemeToggle />
-		<UserInfo {loggedIn} {username} />
+		<UserInfo {loggedIn} {username} {avatar} />
 	</div>
 </div>
 <Separator />

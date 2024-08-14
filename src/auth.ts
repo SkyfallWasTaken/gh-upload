@@ -7,7 +7,15 @@ export type ExtendedSession = Session & {
 };
 
 export const { handle, signIn } = SvelteKitAuth({
-	providers: [GitHub],
+	providers: [
+		GitHub({
+			authorization: {
+				params: {
+					scope: 'user:email repo'
+				}
+			}
+		})
+	],
 	callbacks: {
 		async session({ session, token }) {
 			const typedSession = session as unknown as ExtendedSession;

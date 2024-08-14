@@ -8,11 +8,13 @@
 	export let data: PageData;
 
 	let username: string | null;
+	let avatar: string | null;
 	if (data.session?.user) {
-		username = data.session.user.username || 'Unknown';
+		username = data.session.user.username;
+		avatar = data.session.user.image === undefined ? null : data.session.user.image;
 	}
 </script>
 
 <ModeWatcher />
-<Header {username} loggedIn={data.session != null} />
+<Header {username} loggedIn={data.session != null} {avatar} />
 <slot></slot>
