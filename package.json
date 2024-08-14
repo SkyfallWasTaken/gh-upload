@@ -40,6 +40,7 @@
 	"type": "module",
 	"dependencies": {
 		"@lucia-auth/adapter-drizzle": "^1.1.0",
+		"@neodrag/svelte": "^2.0.6",
 		"arctic": "^1.9.2",
 		"bits-ui": "^0.21.13",
 		"clsx": "^2.1.1",
